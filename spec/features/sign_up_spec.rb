@@ -13,7 +13,7 @@ RSpec.feature "Sign up", type: feature do
     expect(page).to have_content("andrew@example.com")
   end
 
-  scenario "Unauthenticated user completes form with already registered email" do
+  xscenario "Unauthenticated user completes form with already registered email" do
     user = create :user, email: "andrew@example.com"
     visit root
     click_link "Sign Up"
@@ -25,7 +25,7 @@ RSpec.feature "Sign up", type: feature do
     expect(current_path).to eq(registration_path)
     expect(page).to have_content("There is an account already associated with that email address.")
   end
-  scenario "Unauthenticated user completes form" do
+  xscenario "Unauthenticated user completes form" do
     visit root
     click_link "Sign Up"
     fill_in "Email", with: "andrew@example.com"
