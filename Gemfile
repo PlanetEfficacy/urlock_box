@@ -9,6 +9,7 @@ gem 'jquery-rails'
 gem 'jbuilder', '~> 2.5'
 gem 'bcrypt', '~> 3.1.7'
 gem 'rails_12factor', group: :production
+gem 'figaro'
 
 group :development, :test do
   gem 'byebug', platform: :mri
@@ -19,7 +20,7 @@ group :development, :test do
   gem 'shoulda-matchers'
   gem 'database_cleaner'
   gem 'factory_girl_rails'
-  gem 'simplcov', require: false
+  gem 'simplecov', require: false
 end
 
 group :development do
