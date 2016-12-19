@@ -15,7 +15,9 @@
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
   </head>
-
+  <% flash.each do |type, msg| %>
+    <%= content_tag(:div, sanitize(msg), class: "alert alert-#{type}") %>
+  <% end %>
   <body>
     <%= yield %>
   </body>
