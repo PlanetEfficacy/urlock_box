@@ -1,5 +1,15 @@
 class UsersController < ApplicationController
   def create
-    redirect_to links_path
+    @user = User.new(user_params)
+    if @user.save
+      session[:uid] = @user.id
+      redirect_to links_path
+    end
   end
+
+  private
+
+    def user_params
+      params.require(:user).permit(:email, :password, :password_confirmation)
+    end
 end
