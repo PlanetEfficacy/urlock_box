@@ -1,4 +1,9 @@
 class Api::V1::LinksController < ApplicationController
+  def index
+    @links = current_user.links
+    render json: @links
+  end
+
   def create
     @link = Link.new(link_params)
     if @link.save
@@ -13,6 +18,8 @@ class Api::V1::LinksController < ApplicationController
 
   private
     def link_params
-      params.require(:link).permit(:title, :url)
+      whitelist = params.require(:link).permit(:title, :url)
+      whitelist[:user] = current_user
+      return whitelist
     end
 end

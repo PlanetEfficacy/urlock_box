@@ -1,7 +1,8 @@
 FactoryGirl.define do
   factory :link do
-    url "MyString"
-    title "MyString"
-    status 1
+    url "http://www.google.com"
+    title "Best link ever"
+    status 0
+    user
   end
 end
