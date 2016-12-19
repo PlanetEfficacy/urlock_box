@@ -25,7 +25,7 @@ RSpec.describe "Sign up" do
     expect(current_path).to eq(new_registration_path)
     expect(page).to have_content("Email has already been taken")
   end
-  xscenario "Unauthenticated user completes form" do
+  scenario "Unauthenticated user completes form" do
     visit root_path
     click_link "Sign up"
     fill_in "Email", with: "andrew@example.com"
@@ -34,6 +34,6 @@ RSpec.describe "Sign up" do
     click_button "Sign up"
 
     expect(current_path).to eq(new_registration_path)
-    expect(page).to have_content("Password and password confirmation do not match.")
+    expect(page).to have_content("Password confirmation doesn't match Password")
   end
 end
