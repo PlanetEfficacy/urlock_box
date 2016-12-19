@@ -11,6 +11,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'rails_12factor', group: :production
 gem 'figaro'
 gem 'faraday'
+gem 'validate_url'
 
 group :development, :test do
   gem 'byebug', platform: :mri
