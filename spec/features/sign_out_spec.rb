@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "Sign out" do
-  scenario "" do
+  scenario "Logged in user clicks sign out" do
     user = create :user
     login(user)
     click_link "Sign Out"
