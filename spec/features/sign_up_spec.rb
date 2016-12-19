@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.feature "Sign up", type: feature do
+RSpec.describe "Sign up" do
   scenario "Unauthenticated user completes form" do
-    visit root
+    visit root_path
     click_link "Sign Up"
     fill_in "Email", with: "andrew@example.com"
     fill_in "Password", with: "password"
@@ -15,7 +15,7 @@ RSpec.feature "Sign up", type: feature do
 
   xscenario "Unauthenticated user completes form with already registered email" do
     user = create :user, email: "andrew@example.com"
-    visit root
+    visit root_path
     click_link "Sign Up"
     fill_in "Email", with: "andrew@example.com"
     fill_in "Password", with: "password"
@@ -26,7 +26,7 @@ RSpec.feature "Sign up", type: feature do
     expect(page).to have_content("There is an account already associated with that email address.")
   end
   xscenario "Unauthenticated user completes form" do
-    visit root
+    visit root_path
     click_link "Sign Up"
     fill_in "Email", with: "andrew@example.com"
     fill_in "Password", with: "password"
