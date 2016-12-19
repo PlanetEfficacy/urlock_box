@@ -5,7 +5,7 @@ class UsersController < ApplicationController
       session[:uid] = @user.id
       redirect_to links_path
     else
-      flash[:notice] = @user.errors.full_messages.first
+      flash[:danger] = @user.errors.full_messages.first
       redirect_to new_registration_path
     end
   end

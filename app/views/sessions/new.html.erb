@@ -1,0 +1,12 @@
+<div class="container">
+  <div class="col-md-6 col-md-offset-3 text-center">
+    <h1>Login to URLockbox</h1>
+    <%= form_for @user, url: login_path do |f| %>
+      <%= render 'shared/email_password_fields', f: f %>
+      <div class="btn-group">
+        <%= f.submit "Login", class: "btn btn-primary" %>
+        <%= link_to "Sign Up", new_registration_path, class: "btn btn-default" %>
+      </div>
+    <% end %>
+  </div>
+</div>
