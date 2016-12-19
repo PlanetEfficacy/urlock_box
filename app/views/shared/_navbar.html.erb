@@ -1,0 +1,12 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <%= link_to "URLockbox", links_path, class: "navbar-brand" %>
+    </div>
+    <ul class="nav navbar-nav navbar-right">
+      <% if current_user %>
+        <li><%= link_to "Sign Out", logout_path %></li>
+      <% end %>
+    </ul>
+  </div>
+</nav>
