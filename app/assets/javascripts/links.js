@@ -104,10 +104,9 @@ function editLink() {
     $(this).find('btn-read').removeClass('hidden');
   }
 
-  $.post('', { link: { title: title,
-                        url: url,
-                        status: status,
-                        id: id }})
+  $.post('https://shrouded-meadow-76570.herokuapp.com/api/v1/reads',
+          { link: { title: title, url: url }})
+            
   $.ajax({
     url: `/${api}/${id}`,
     method: 'put',
