@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :links, only: [:create, :index, :update]
       get '/read', to: 'read#index'
+      get '/unread', to: 'unread#index'
     end
   end
 end
