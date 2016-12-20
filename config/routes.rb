@@ -4,12 +4,15 @@ Rails.application.routes.draw do
   get '/login', to: 'sessions#new', as: 'login'
   post '/login', to: 'sessions#create'
   get '/logout', to: 'sessions#destroy'
+
+
   resources :users, only: [:create]
   resources :links, only: [:index]
 
   namespace :api do
     namespace :v1 do
       resources :links, only: [:create, :index, :update]
+      get '/read', to: 'read#index'
     end
   end
 end

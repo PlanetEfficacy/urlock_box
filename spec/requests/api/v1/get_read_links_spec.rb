@@ -16,6 +16,6 @@ describe "#get to /read", type: :request do
     expect(links.count).to eq(2)
     expect(links.first["user_id"]).to eq(user.id)
     expect(links.last["user_id"]).to eq(user.id)
-    expect(links.any? { |link| link["id"] == unread.link }).to eq(false)
+    expect(links.any? { |link| link["id"] == unread.url }).to eq(false)
   end
 end
