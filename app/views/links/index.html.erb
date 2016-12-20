@@ -24,7 +24,7 @@
         <p>
           <%= label_tag :filter %>
           <%= select_tag :filter,
-              options_for_select([ "Read", "Unread"]),
+              options_for_select([ "All", "Read", "Unread"]),
               class: "form-control",
               id: "filter" %>
         </p>

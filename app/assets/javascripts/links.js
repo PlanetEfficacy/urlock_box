@@ -5,6 +5,7 @@ $(document).ready(function() {
   newLinkTitle = $('#create-link-title');
   newLinkUrl = $('#create-link-url');
   linkList = $("#link-list");
+  $('#filter').on('change', filterLinks)
   $('#create-link-button').on('click', createLink);
   getLinks();
 })
@@ -105,16 +106,37 @@ function editLink() {
     data: link,
     type: 'json'
   }).then(renderUpdate)
+}
 
-  function renderUpdate(data) {
-    if(data.status === 1) {
-      $('span[data-id=' + data.id + ']').removeClass('hidden')
-      $('.btn-read[data-id=' + data.id + ']').addClass('hidden')
-      $('.btn-unread[data-id=' + data.id + ']').removeClass('hidden')
-    } else {
-      $('span[data-id=' + data.id + ']').addClass('hidden')
-      $('.btn-unread[data-id=' + data.id + ']').addClass('hidden')
-      $('.btn-read[data-id=' + data.id + ']').removeClass('hidden')
-    }
+function renderUpdate(data) {
+  if(data.status === 1) {
+    $('span[data-id=' + data.id + ']').removeClass('hidden')
+    $('.btn-read[data-id=' + data.id + ']').addClass('hidden')
+    $('.btn-unread[data-id=' + data.id + ']').removeClass('hidden')
+  } else {
+    $('span[data-id=' + data.id + ']').addClass('hidden')
+    $('.btn-unread[data-id=' + data.id + ']').addClass('hidden')
+    $('.btn-read[data-id=' + data.id + ']').removeClass('hidden')
   }
+}
+
+function filterLinks(){
+  linkList.html("")
+  if($(this).val() === "All"){
+    getLinks()
+  } else if ($(this).val() === "Read"){
+    getReadLinks()
+  } else {
+    getUnreadLinks()
+  }
+}
+
+function getReadLinks() {
+  $.getJSON('api/v1/read')
+  .then(renderLinks)
+}
+
+function getUnreadLinks() {
+  $.getJSON('api/v1/unread')
+  .then(renderLinks)
 }
