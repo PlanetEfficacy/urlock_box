@@ -16,6 +16,10 @@ class Api::V1::LinksController < ApplicationController
     end
   end
 
+  def update
+
+  end
+
   private
     def link_params
       whitelist = params.require(:link).permit(:title, :url)
