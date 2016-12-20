@@ -5,11 +5,11 @@
       <h4>Submit a new link</h4>
         <div class="form-group text-left">
           <%= label_tag :title %>
-          <%= text_field_tag :title, '', id: 'create-link-title', class: "form-control" %>
+          <%= text_field_tag :title, '', name: 'Title', id: 'create-link-title', class: "form-control" %>
         </div>
         <div class="form-group text-left">
           <%= label_tag :url %>
-          <%= url_field_tag :url, '', id: 'create-link-url', class: "form-control" %>
+          <%= url_field_tag :url, '', name: 'Url', id: 'create-link-url', class: "form-control" %>
         </div>
         <div class="form-group">
           <%= submit_tag "Submit", id: 'create-link-button', class: "btn btn-primary" %>
