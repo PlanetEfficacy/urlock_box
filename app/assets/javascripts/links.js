@@ -74,6 +74,7 @@ function createLink() {
   $.post(api, newLink(newLinkTitle.val(), newLinkUrl.val()))
    .then(renderLink)
    .then(clearForm)
+   .then(addClickHandlers)
 }
 
 function clearForm() {
@@ -83,8 +84,8 @@ function clearForm() {
 
 
 function addClickHandlers() {
-  $(".btn-read").on('click', editLink);
-  $(".btn-unread").on('click', editLink);
+  $(".btn-read").unbind('click').on('click', editLink);
+  $(".btn-unread").unbind('click').on('click', editLink);
   $(".panel-title").on('blur', editLink);
   $(".link-url").on('blur', editLink);
 }
