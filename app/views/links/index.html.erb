@@ -19,18 +19,25 @@
 </div>
 <div class="container">
   <div class="container">
-    <div class="col-md-offset-10 col-md-2">
-      <form class="form-inline" action="index.html" method="post">
-        <p>
+    <form class="form-inline" action="index.html" method="post">
+      <div class="col-md-6">
+        <div class="form-group text-left">
+          <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+          <%= text_field_tag :search, '', id: "search", class: "form-control" %>
+        </div>
+      </div>
+      <div class="col-md-2 col-md-offset-4">
+        <div class="form-group text-left">
           <%= label_tag :filter %>
           <%= select_tag :filter,
-              options_for_select([ "All", "Read", "Unread"]),
-              class: "form-control",
-              id: "filter" %>
-        </p>
-      </form>
-    </div>
+          options_for_select([ "All", "Read", "Unread"]),
+          class: "form-control",
+            id: "filter" %>
+          </div>
+      </div>
+    </form>
   </div>
+  <p></p>
   <div class="" id="link-list">
   </div>
 </div>

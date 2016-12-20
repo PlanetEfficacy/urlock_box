@@ -1,5 +1,6 @@
-var newLinkTitle, newLinkUrl
-var api = "api/v1/links"
+var newLinkTitle, newLinkUrl;
+var api = "api/v1/links";
+var allLinks = "";
 
 $(document).ready(function() {
   newLinkTitle = $('#create-link-title');
@@ -7,6 +8,7 @@ $(document).ready(function() {
   linkList = $("#link-list");
   $('#filter').on('change', filterLinks)
   $('#create-link-button').on('click', createLink);
+  $('#search').on('keyup', search)
   getLinks();
 })
 
@@ -16,6 +18,7 @@ function getLinks() {
 }
 
 function renderLinks(data) {
+  allLinks = data;
   data.forEach(renderLink);
   addClickHandlers()
 }
@@ -90,16 +93,21 @@ function addClickHandlers() {
 function editLink() {
   var status = $(this).hasClass('btn-read') ? 1 : 0;
   $(this).addClass('hidden');
-  if(status === 1) {
-    $(this).find('btn-unread').removeClass('hidden');
-  } else {
-    $(this).find('btn-read').removeClass('hidden');
-  }
   var panel = $(this).closest(".panel"),
       id = panel.data('id'),
       title = panel.find(".panel-title").text(),
       url = panel.find(".link-url").text().trim(),
       link = newLink(title, url, status);
+  if(status === 1) {
+    $(this).find('btn-unread').removeClass('hidden');
+  } else {
+    $(this).find('btn-read').removeClass('hidden');
+  }
+
+  $.post('', { link: { title: title,
+                        url: url,
+                        status: status,
+                        id: id }})
   $.ajax({
     url: `/${api}/${id}`,
     method: 'put',
@@ -139,4 +147,17 @@ function getReadLinks() {
 function getUnreadLinks() {
   $.getJSON('api/v1/unread')
   .then(renderLinks)
+}
+
+function search() {
+  $.getJSON(api).then(function(data){
+    var searchString = $("#search").val().toLowerCase()
+    if (searchString.length > 0) {
+      data = allLinks.filter(function(link){
+        return link.title.toLowerCase().includes(searchString) || link.url.includes(searchString)
+      });
+    }
+    linkList.html("")
+    renderLinks(data);
+  })
 }
