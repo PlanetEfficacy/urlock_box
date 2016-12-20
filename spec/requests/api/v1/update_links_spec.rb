@@ -27,4 +27,14 @@ describe "#put to /links/:id", type: :request do
     expect(response).to have_http_status(:bad_request)
     expect(error["message"]).to eq("Url is not a valid URL")
   end
+
+  it "returns an error if link is invalid because of no status" do
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
+    put "/api/v1/links/#{link.id}", link: { title: "Turing School", url: "http://www.turing.io", status: ""}
+    error = JSON.parse(response.body)
+
+    expect(response).to have_http_status(:bad_request)
+    expect(error["message"]).to eq("Status can't be blank")
+  end
 end
