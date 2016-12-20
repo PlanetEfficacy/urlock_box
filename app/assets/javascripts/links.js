@@ -48,8 +48,7 @@ function renderLink(link) {
           </button>
         </div>
       </div>
-    </div>
-  `;
+    </div>`;
   linkList.prepend(html);
   var id = link.id
   var read_status = $( "body" ).find('span[data-id=' + id + ']');
@@ -106,7 +105,7 @@ function editLink() {
 
   $.post('https://shrouded-meadow-76570.herokuapp.com/api/v1/reads',
           { link: { title: title, url: url }})
-            
+
   $.ajax({
     url: `/${api}/${id}`,
     method: 'put',
