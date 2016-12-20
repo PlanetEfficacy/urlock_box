@@ -36,21 +36,29 @@ function renderLink(link) {
           </h4>
         </div>
         <div class="panel-footer text-center" data-id=${ link.id }>
-          <button type="button" class="btn btn-primary btn-read">
+          <button type="button" class="btn btn-primary btn-read" data-id=${ link.id }>
             <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span> Mark as Read
           </button>
-          <button type="button" class="btn btn-danger btn-unread">
+          <button type="button" class="btn btn-danger btn-unread" data-id=${ link.id }>
             <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> Mark as Unread
           </button>
         </div>
       </div>
     </div>
   `;
-  linkList.prepend(html)
-  read_status = $( "body" ).find('span[data-id=' + link.id + ']')
+  linkList.prepend(html);
+  var id = link.id
+  var read_status = $( "body" ).find('span[data-id=' + id + ']');
+  var read = $('.btn-read[data-id=' + id + ']');
+  var unread = $('.btn-unread[data-id=' + id + ']');
   if(link.status === 1) {
-    console.log(read_status)
     read_status.removeClass('hidden')
+    read.addClass('hidden')
+    unread.removeClass('hidden')
+  } else {
+    read_status.addClass('hidden')
+    read.removeClass('hidden')
+    unread.addClass('hidden')
   }
 }
 
@@ -60,7 +68,6 @@ function newLink(title, url, status) {
 
 function createLink() {
   event.preventDefault();
-  // console.log(newLink(newLinkTitle.val(), newLinkUrl.val()))
   $.post(api, newLink(newLinkTitle.val(), newLinkUrl.val()))
    .then(renderLink)
    .then(clearForm)
@@ -80,11 +87,17 @@ function addClickHandlers() {
 }
 
 function editLink() {
+  var status = $(this).hasClass('btn-read') ? 1 : 0;
+  $(this).addClass('hidden');
+  if(status === 1) {
+    $(this).find('btn-unread').removeClass('hidden');
+  } else {
+    $(this).find('btn-read').removeClass('hidden');
+  }
   var panel = $(this).closest(".panel"),
       id = panel.data('id'),
       title = panel.find(".panel-title").text(),
       url = panel.find(".link-url").text().trim(),
-      status = $(this).hasClass('btn-read') ? 1 : 0,
       link = newLink(title, url, status);
   $.ajax({
     url: `/${api}/${id}`,
@@ -94,11 +107,14 @@ function editLink() {
   }).then(renderUpdate)
 
   function renderUpdate(data) {
-    console.log(data.status)
     if(data.status === 1) {
-      $( "body" ).find('span[data-id=' + data.id + ']').removeClass('hidden')
+      $('span[data-id=' + data.id + ']').removeClass('hidden')
+      $('.btn-read[data-id=' + data.id + ']').addClass('hidden')
+      $('.btn-unread[data-id=' + data.id + ']').removeClass('hidden')
     } else {
-      $( "body" ).find('span[data-id=' + data.id + ']').addClass('hidden')
+      $('span[data-id=' + data.id + ']').addClass('hidden')
+      $('.btn-unread[data-id=' + data.id + ']').addClass('hidden')
+      $('.btn-read[data-id=' + data.id + ']').removeClass('hidden')
     }
   }
 }

@@ -1,6 +1,6 @@
 class Api::V1::LinksController < ApplicationController
   def index
-    @links = current_user.links
+    @links = current_user.links.order(:created_at)
     render json: @links
   end
 
