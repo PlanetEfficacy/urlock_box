@@ -21,11 +21,13 @@ class Api::V1::LinksController < ApplicationController
                         title: params[:link][:title],
                         url: params[:link][:url],
                         status: params[:link][:status])
-    if @link
+    if @link.save
       render json: { id: @link.id,
                      title: @link.title,
                      url: @link.url,
                      status: @link.status }
+    else
+      render json: { message: @link.errors.full_messages.first }, status: :bad_request
     end
   end
 

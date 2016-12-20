@@ -26,6 +26,4 @@ describe "#post to /links", type: :request do
     expect(response).to have_http_status(:bad_request)
     expect(error["message"]).to eq("Url is not a valid URL")
   end
-
-  # it "returns an error if "
 end
